@@ -9,6 +9,7 @@ jobs:
     steps:
       - run: |
           ls
+          echo ${{github.run_attempt}}
           echo ${{github.run_number}}
           echo ${{github.event.pull_request.number}}
           echo ${{github.ref_name}}
