@@ -12,6 +12,7 @@ jobs:
           echo ${{github.event.pull_request.number}}
           echo ${{github.ref}}
           echo ${{github.sha}}
+          echo ${{toJson(github.ref)}}
           gh api graphql -f query='{
             repository(owner: "wild-nyankoman",name: "my-inspection") {
               pullRequests(states: [OPEN], first: 100, orderBy: { field: UPDATED_AT, direction: DESC }) {
