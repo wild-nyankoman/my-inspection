@@ -1,0 +1,16 @@
+{
+  repository(owner: "wild-nyankoman",name: "my-inspection") {
+    pullRequests(states: [OPEN], first: 100, orderBy: { field: UPDATED_AT, direction: DESC }) {
+      nodes {
+        baseRefName
+        baseRefOid
+        headRefName
+        headRefOid
+        potentialMergeCommit {
+          message
+          oid
+        }
+      }
+    }
+  }
+}
