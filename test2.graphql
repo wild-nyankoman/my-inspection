@@ -1,0 +1,9 @@
+{
+  repository(owner: "wild-nyankoman", name: "my-inspection") {
+    ref(qualifiedName: "refs/heads/main") {
+      target {
+        oid
+      }
+    }
+  }
+}
