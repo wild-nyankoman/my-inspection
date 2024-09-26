@@ -9,8 +9,9 @@ jobs:
     steps:
       - run: |
           ls
+          echo ${{github.run_number}}
           echo ${{github.event.pull_request.number}}
-          echo ${{github.ref}}
+          echo ${{github.ref_name}}
           echo ${{github.sha}}
           echo ${{toJson(github.ref)}}
           gh api graphql -f query='{
