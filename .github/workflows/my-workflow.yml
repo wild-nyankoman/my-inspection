@@ -18,20 +18,12 @@ jobs:
           echo ${{toJson(github.ref)}}
           gh api graphql -f query='{
             repository(owner: "wild-nyankoman",name: "my-inspection") {
-              pullRequests(states: [OPEN], first: 100, orderBy: { field: UPDATED_AT, direction: DESC }) {
-                nodes {
-                  baseRefName
-                  baseRefOid
-                  headRefName
-                  headRefOid
-                  potentialMergeCommit {
-                    message
-                    oid
-                  }
+              ref(quarlifiedName: "${{github.ref}}") {
+                target {
+                  oid
                 }
               }
             }
           }'
-        if: ${{github.run_attempt > 1}}
         env:
           GH_TOKEN: ${{ github.token }}
