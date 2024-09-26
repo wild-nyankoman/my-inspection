@@ -18,7 +18,7 @@ jobs:
           echo ${{toJson(github.ref)}}
           gh api graphql -f query='{
             repository(owner: "wild-nyankoman",name: "my-inspection") {
-              ref(quarlifiedName: "${{github.ref}}") {
+              ref(qualifiedName: "${{github.ref}}") {
                 target {
                   oid
                 }
