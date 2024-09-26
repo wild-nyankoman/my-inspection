@@ -7,7 +7,8 @@ jobs:
   my-job:
     runs-on: ubuntu-22.04
     steps:
-      - run: |
+      - name: my-step
+        run: |
           ls
           echo ${{github.run_attempt}}
           echo ${{github.run_number}}
@@ -31,5 +32,6 @@ jobs:
               }
             }
           }'
+        if: ${{github.run_attempt == 1}}
         env:
           GH_TOKEN: ${{ github.token }}
