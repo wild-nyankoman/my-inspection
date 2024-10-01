@@ -32,7 +32,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
     outputs:
-      hoge: ${{secrets.HOGE}}
+      hoge: ${{vars.UNKO}}
   my-job2:
     uses: ./.github/workflows/callee.yml
     secrets: inherit
