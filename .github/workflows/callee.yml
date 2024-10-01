@@ -7,7 +7,7 @@ jobs:
   testjob:
     runs-on: ubuntu-22.04
     outputs:
-      b64: ${{steps.yyy.outputs.b64}}
+      b64: ${{steps.xxx.outputs.result}}
     steps:
       - id: xxx
         uses: actions/github-script@v7
@@ -28,8 +28,3 @@ jobs:
             core.info(output);
             core.info(Buffer.from(output).toString('base64'));
             return Buffer.from(output).toString('base64');
-      - id: yyy
-        env:
-          X: ${{steps.xxx.outputs.result}}
-        run: |
-          echo "b64=$X" >> $GITHUB_OUTPUT
