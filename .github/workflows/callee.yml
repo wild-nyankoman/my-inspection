@@ -18,7 +18,7 @@ jobs:
           SECRETS: ${{toJson(secrets)}}
           VARS: ${{toJson(vars)}}
         with:
-          result-encoding: json
+          result-encoding: string
           retries: 3
           script: |
             core.info(`node: ${process.version}`);
@@ -27,7 +27,10 @@ jobs:
             
             const vars = Object.fromEntries(Object.entries(JSON.parse(process.env.VARS)).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
             core.info(JSON.stringify(vars, null, 2));
-            return process.env.SECRETS;
+            const output = JSON.stringify(process.env.SECRETS);
+            core.info(output);
+            core.info(Buffer.from(output).toString('base64');
+            return output;
       - id: yyy
         env:
           X: ${{steps.xxx.outputs.result}}
