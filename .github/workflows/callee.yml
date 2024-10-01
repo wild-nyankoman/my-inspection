@@ -34,4 +34,4 @@ jobs:
         run: |
           b64="$(echo $X | base64)"
           echo $b64
-          echo b64="$b64" >> $GITHUB_OUTPUT
+          echo b64=\"$b64\" >> $GITHUB_OUTPUT
