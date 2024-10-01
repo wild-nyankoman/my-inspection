@@ -9,12 +9,14 @@ jobs:
           secrets=$(echo $SECRETS | jq to_entries)
           for item in $secrets; do
             echo $item | rev
+            echo '------------------'
           done
           echo ''
           echo 'vars'
           vars=$(echo $VARS | jq to_entries)
           for item in $vars; do
             echo $item | rev
+            echo '------------------'
           done
         env:
           SECRETS: ${{toJson(secrets)}}
