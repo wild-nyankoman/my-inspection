@@ -1,8 +1,6 @@
 on:
   workflow_call:
     outputs:
-      test:
-        value: ${{ jobs.testjob.outputs.test }}
       b64:
         value: ${{ jobs.testjob.outputs.b64 }}
 jobs:
@@ -37,4 +35,4 @@ jobs:
         run: |
           b64="$(echo $X | base64)"
           echo $b64
-          echo b64=\"$b64\" >> $GITHUB_OUTPUT
+          echo "b64=$b64" >> $GITHUB_OUTPUT
