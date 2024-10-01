@@ -42,11 +42,4 @@ jobs:
     #   - my-job2
     runs-on: ubuntu:22.04
     steps:
-      - name: aaaaaa
-        run: |
-          echo test
-          echo test
-          echo test
-          echo test
-          echo test
-          echo test
+      - run: echo 123
