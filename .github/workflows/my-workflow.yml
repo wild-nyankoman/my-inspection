@@ -44,5 +44,7 @@ jobs:
       - name: Check
         env:
           TEST1: ${{steps.env.outputs.TEST1}}
+          TEST1-1: ${{toJson(secrets)['PROD''_TEST1']}}
         run: |
           echo TEST1: $(echo $TEST1 | rev)
+          ecoh TEST1-1: $(echo $TEST1-1 | rev)
