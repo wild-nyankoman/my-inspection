@@ -15,8 +15,8 @@ jobs:
           retries: 3
           script: |
             const secret = Object.fromEntries(Object.entries(process.env.SECRETS).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
-            core.info(secret);
+            core.info(JSON.stringify(secret, null, 2);
 
             const vars = Object.fromEntries(Object.entries(process.env.VARS).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
-            core.info(vars);
+            core.info(JSON.stringify(vars, null, 2));
           
