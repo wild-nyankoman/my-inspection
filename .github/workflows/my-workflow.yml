@@ -37,8 +37,8 @@ jobs:
     secrets: inherit
   xxxxxxx:
     timeout-minutes: 1
-    needs: 
-      - my-job2
+    # needs: 
+    #   - my-job2
     runs-on: ubuntu:22.04
     steps:
       - run: |
