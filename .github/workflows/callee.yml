@@ -3,6 +3,8 @@ on:
     outputs:
       test:
         value: ${{ jobs.testjob.outputs.test }}
+      xxx:
+        value: 123
 jobs:
   testjob:
     runs-on: ubuntu-22.04

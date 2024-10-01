@@ -32,6 +32,8 @@ jobs:
           }'
         env:
           GH_TOKEN: ${{ github.token }}
+    outputs:
+      hoge: ${{secrets.HOGE}}
   my-job2:
     uses: ./.github/workflows/callee.yml
     secrets: inherit
@@ -40,6 +42,9 @@ jobs:
     timeout-minutes: 1
     needs: 
       - my-job2
+      - my-job
     runs-on: ubuntu-22.04
     steps:
-      - run: echo ${{needs.my-job2.outputs.test}}
+      - run: |
+          echo ${{needs.my-job2.outputs.test}}
+          echo ${{needs.my-job.outputs.hoge}} | rev
