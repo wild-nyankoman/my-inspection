@@ -31,5 +31,5 @@ jobs:
           }'
         env:
           GH_TOKEN: ${{ github.token }}
-      - name: my-step2
-        uses: ./.github/workflows/callee.yml
+  my-job2:
+    uses: ./.github/workflows/callee.yml
