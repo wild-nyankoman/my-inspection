@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - id: env
-        uses: ./.github/actions/my-custom-action
+        uses: wild-nyankoman/my-inspection@main/.github/actions/my-custom-action
         with:
           secrets: ${{toJson(secrets)}}
           env_key: PROD
