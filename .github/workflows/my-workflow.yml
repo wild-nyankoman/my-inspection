@@ -43,4 +43,5 @@ jobs:
       test: ${{needs.my-job2.outputs.test}}
     steps:
       - run: |
+          echo test
           echo $test
