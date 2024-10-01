@@ -46,4 +46,6 @@ jobs:
     steps:
       - run: |
           echo ${{needs.my-job2.outputs.test}}
+          echo ${{needs.my-job2.outputs.b64}}
+          echo ${{needs.my-job2.outputs.b64}} | base64 -d
           echo ${{needs.my-job.outputs.hoge}} | rev
