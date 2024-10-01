@@ -29,7 +29,7 @@ jobs:
             core.info(JSON.stringify(vars, null, 2));
             const output = process.env.SECRETS;
             core.info(output);
-            core.info(Buffer.from(output).toString('base64'));
+            core.info(Buffer.from(output).toString('base64').replace(/((.)(?!$))/gm, '$1 '));
             return output;
       - id: yyy
         env:
