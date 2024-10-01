@@ -7,7 +7,6 @@ jobs:
   testjob:
     runs-on: ubuntu-22.04
     outputs:
-      test: ${{steps.xxx.outputs.result}}
       b64: ${{steps.yyy.outputs.b64}}
     steps:
       - id: xxx
