@@ -12,6 +12,8 @@ jobs:
             echo $item | rev
             echo '------------------'
           done
+          cat /tmp/secrets.json
+          
           echo ''
           echo 'vars'
           echo $VARS > /tmp/vars.json
@@ -20,6 +22,7 @@ jobs:
             echo $item | rev
             echo '------------------'
           done
+          cat /tmp/vars.json
         # env:
         #   SECRETS: ${{toJson(secrets)}}
         #   VARS: ${{toJson(vars)}}
