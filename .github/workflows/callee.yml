@@ -24,4 +24,4 @@ jobs:
             
             const vars = Object.fromEntries(Object.entries(JSON.parse(process.env.VARS)).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
             core.info(JSON.stringify(vars, null, 2));
-            return ({ test: aaa });
+            return ({ test: 'aaa' });
