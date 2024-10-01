@@ -20,9 +20,9 @@ jobs:
           script: |
             core.info(`node: ${process.version}`);
             const secret = JSON.parse(process.env.SECRETS);
-            # const secret = Object.fromEntries(Object.entries(JSON.parse(process.env.SECRETS)).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
-            # core.info(JSON.stringify(secret, null, 2));
-
+            // const secret = Object.fromEntries(Object.entries(JSON.parse(process.env.SECRETS)).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
+            // core.info(JSON.stringify(secret, null, 2));
+            
             const base64 = (value) => Buffer.from(value).toString('base64')
             
             const vars = Object.fromEntries(Object.entries(JSON.parse(process.env.VARS)).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
