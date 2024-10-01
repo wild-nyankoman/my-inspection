@@ -1,8 +1,7 @@
 on:
   workflow_call:
     outputs:
-      firstword:
-        description: "The first output string"
+      test:
         value: ${{ jobs.testjob.outputs.test }}
 jobs:
   testjob:
