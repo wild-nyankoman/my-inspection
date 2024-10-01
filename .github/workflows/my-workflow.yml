@@ -6,40 +6,40 @@ on:
 
 
 jobs:
-  # my-job:
-  #   runs-on: ubuntu-22.04
-  #   if: ${{false}}
-  #   steps:
-  #     - name: my-step
-  #       if: ${{false}}
-  #       run: |
-  #         ls
-  #         echo ${{ github.run_attempt }}
-  #         echo ${{ github.run_number }}
-  #         echo ${{ github.event.pull_request.number }}
-  #         echo ${{ github.ref_name }}
-  #         echo ${{ github.sha }}
-  #         echo ${{ toJson(github.ref) }}
+  my-job:
+    runs-on: ubuntu-22.04
+    if: ${{false}}
+    steps:
+      - name: my-step
+        if: ${{false}}
+        run: |
+          ls
+          echo ${{ github.run_attempt }}
+          echo ${{ github.run_number }}
+          echo ${{ github.event.pull_request.number }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.sha }}
+          echo ${{ toJson(github.ref) }}
 
-  #         gh api graphql -f query='{
-  #           repository(owner: "wild-nyankoman",name: "my-inspection") {
-  #             ref(qualifiedName: "${{github.ref}}") {
-  #               target {
-  #                 oid
-  #               }
-  #             }
-  #           }
-  #         }'
-  #       env:
-  #         GH_TOKEN: ${{ github.token }}
-  # my-job2:
-  #   uses: ./.github/workflows/callee.yml
-  #   secrets: inherit
+          gh api graphql -f query='{
+            repository(owner: "wild-nyankoman",name: "my-inspection") {
+              ref(qualifiedName: "${{github.ref}}") {
+                target {
+                  oid
+                }
+              }
+            }
+          }'
+        env:
+          GH_TOKEN: ${{ github.token }}
+  my-job2:
+    uses: ./.github/workflows/callee.yml
+    secrets: inherit
   xxxxxxx:
     name: XXxxxxxx
     timeout-minutes: 1
-    # needs: 
-    #   - my-job2
-    runs-on: ubuntu:22.04
+    needs: 
+      - my-job2
+    runs-on: ubuntu-22.04
     steps:
-      - run: echo 123
+      - run: echo ${{needs.my-job2.outputs.test}}
