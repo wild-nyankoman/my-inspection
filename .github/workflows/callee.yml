@@ -32,4 +32,6 @@ jobs:
         env:
           X: ${{steps.xxx.outputs.result}}
         run: |
-          echo b64=$(echo $X | base64) >> $GITHUB_OUTPUT
+          b64=$(echo $X | base64)
+          echo $b64
+          echo b64="$b64" >> $GITHUB_OUTPUT
