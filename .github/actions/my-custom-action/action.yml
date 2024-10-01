@@ -1,0 +1,41 @@
+name: My Custom Action
+description: 環境別のシークレットを引き当てるアクション
+inputs:
+  env_key:
+    description: 環境別のキー。
+    required: true
+  secrets:
+    description: シークレット。toJSONして食わせる。
+    required: true
+outputs:
+  TEST1:
+    description: 指定された環境のsecret TEST1 (XXX_TEST1)
+    value: ${{steps.yyy.outputs.TEST1}}
+
+runs:
+  using: composite
+  steps:
+    - id: xxx
+      uses: actions/github-script@v7
+      env:
+        secrets: ${{inputs.secrets}}
+        env_key: ${{inputs.env_key}}
+      with:
+        result-encoding: string
+        script: |
+          const secrets = JSON.parse(process.env.secrets);
+          const envKey = process.env['env_key'];
+
+          const entries = Object.entries(secrets)
+            .filter(([key]) => key.startsWith(`${envKey}_`))
+            .map(([key, value]) => ([key.replace(`${envKey}_`, ''), value]));
+          
+          return JSON.stringify(Object.fromEntries(entries));
+    - id: yyy
+      shell: bash
+      env:
+        SWITCH_ENV: ${{steps.xxx.outputs.result}}
+      run: |
+        echo $SWITCH_ENV
+        echo "TEST1=$(echo $SWITCH_ENV | jq .TEST1)" >> $GITHUB_OUTPUT
+        
