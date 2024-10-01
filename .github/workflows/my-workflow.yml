@@ -1,21 +1,25 @@
-on: 
+on:
   pull_request: {}
   push: {}
   workflow_dispatch: {}
+
+
 
 jobs:
   my-job:
     runs-on: ubuntu-22.04
     steps:
       - name: my-step
+        if: ${{false}}
         run: |
           ls
-          echo ${{github.run_attempt}}
-          echo ${{github.run_number}}
-          echo ${{github.event.pull_request.number}}
-          echo ${{github.ref_name}}
-          echo ${{github.sha}}
-          echo ${{toJson(github.ref)}}
+          echo ${{ github.run_attempt }}
+          echo ${{ github.run_number }}
+          echo ${{ github.event.pull_request.number }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.sha }}
+          echo ${{ toJson(github.ref) }}
+
           gh api graphql -f query='{
             repository(owner: "wild-nyankoman",name: "my-inspection") {
               ref(qualifiedName: "${{github.ref}}") {
@@ -27,3 +31,5 @@ jobs:
           }'
         env:
           GH_TOKEN: ${{ github.token }}
+      - name: my-step2
+        uses: ./.github/workflows/callee.yml

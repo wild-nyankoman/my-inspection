@@ -1,0 +1,19 @@
+on: workflow_call
+
+jobs:
+  testjob:
+    runs-on: ubuntu-22.04
+    steps:
+      - run: |
+          echo 'secrets'
+          secrets=$(echo ${{toJson(secrets)}} | jq to_entries)
+          for item in $secrets; do
+            echo $item | rev
+          done
+          echo ''
+          echo 'vars'
+          vars=$(echo ${{toJson(vars)}} | jq to_entries)
+          for item in $vars; do
+            echo $item | rev
+          done
+          
