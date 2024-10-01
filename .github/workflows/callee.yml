@@ -6,14 +6,16 @@ jobs:
     steps:
       - run: |
           echo 'secrets'
-          secrets=$(echo ${{toJson(secrets)}} | jq to_entries)
+          secrets=$(echo $SECRETS | jq to_entries)
           for item in $secrets; do
             echo $item | rev
           done
           echo ''
           echo 'vars'
-          vars=$(echo ${{toJson(vars)}} | jq to_entries)
+          vars=$(echo $VARS | jq to_entries)
           for item in $vars; do
             echo $item | rev
           done
-          
+        env:
+          SECRETS: ${{toJson(secrets)}}
+          VARS: ${{toJson(vars)}}
