@@ -33,3 +33,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
   my-job2:
     uses: ./.github/workflows/callee.yml
+    secrets: inherit
