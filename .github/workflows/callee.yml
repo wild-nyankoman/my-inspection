@@ -34,6 +34,8 @@ jobs:
             core.info(' my secret: ' + base64(' my-secret')) 
             core.info('  my secret: ' + base64('  my-secret')) 
             core.info('   my secret: ' + base64('  my-secret'))
+            
+            core.info('github-token: ' + secret['github_token']) 
             core.info('github-token: ' + base64('' + secret['github_token'])) 
             core.info(' github-token: ' + base64(' ' + secret['github_token'])) 
             core.info('  github-token: ' + base64('  ' + secret['github_token'])) 
