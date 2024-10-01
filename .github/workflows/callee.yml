@@ -4,25 +4,19 @@ jobs:
   testjob:
     runs-on: ubuntu-22.04
     steps:
-      - run: |
-          echo 'secrets'
-          echo $SECRETS > secrets.json
-          secrets=$(jq to_entries secrets.json)
-          for item in $secrets; do
-            echo $item | rev
-            echo '------------------'
-          done
-          cat secrets.json
+      - id: xxx
+        uses: actions/github-script@7
+        env:
+          SECRETS: ${{toJson(secrets)}}
+          VARS: ${{toJson(vars)}}
+        
+        with:
+          result-encoding: string
+          retries: 3
+          script: |
+            const secret = Object.fromEntries(Object.entries(process.env.SECRETS).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
+            core.log(secret);
 
-          echo ''
-          echo 'vars'
-          echo $VARS > vars.json
-          vars=$(jq to_entries vars.json)
-          for item in $vars; do
-            echo $item | rev
-            echo '------------------'
-          done
-          cat vars.json
-        # env:
-        #   SECRETS: ${{toJson(secrets)}}
-        #   VARS: ${{toJson(vars)}}
+            const vars = Object.fromEntries(Object.entries(process.env.VARS).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
+            core.log(vars);
+          
