@@ -36,12 +36,14 @@ jobs:
     uses: ./.github/workflows/callee.yml
     secrets: inherit
   xxxxxxx:
+    name: XXxxxxxx
     timeout-minutes: 1
     # needs: 
     #   - my-job2
     runs-on: ubuntu:22.04
     steps:
-      - run: |
+      - name: aaaaaa
+        run: |
           echo test
           echo test
           echo test
