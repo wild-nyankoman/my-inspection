@@ -1,7 +1,7 @@
 on:
-  pull_request: {}
+  # pull_request: {}
   push: {}
-  workflow_dispatch: {}
+  # workflow_dispatch: {}
 
 
 
@@ -39,9 +39,11 @@ jobs:
     needs: 
       - my-job2
     runs-on: ubuntu:22.04
-    env:
-      test: ${{needs.my-job2.outputs.test}}
     steps:
       - run: |
           echo test
-          echo $test
+          echo test
+          echo test
+          echo test
+          echo test
+          echo test
