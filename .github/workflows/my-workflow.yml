@@ -48,4 +48,4 @@ jobs:
           TEST11: ${{secrets[format('{0}_{1}', env.ENV, 'TEST1')]}}
         run: |
           echo TEST1: $(echo $TEST1 | rev)
-          ecoh TEST11: $(echo $TEST11 | rev)
+          echo TEST11: $(echo $TEST11 | rev)
