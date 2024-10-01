@@ -42,4 +42,4 @@ jobs:
       - my-job2
     runs-on: ubuntu-22.04
     steps:
-      - run: echo ${{needs.my-job2.outputs.test}}
+      - run: echo ${{toJson(needs.my-job2.outputs)}}
