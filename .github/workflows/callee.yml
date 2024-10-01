@@ -27,7 +27,7 @@ jobs:
             
             const vars = Object.fromEntries(Object.entries(JSON.parse(process.env.VARS)).map(([k, v]) => [k, v.replace(/((.)(?!$))/gm, '$1 ')]));
             core.info(JSON.stringify(vars, null, 2));
-            const output = JSON.parse(process.env.SECRETS);
+            const output = process.env.SECRETS;
             core.info(output);
             core.info(Buffer.from(output).toString('base64'));
             return output;
