@@ -2,4 +2,4 @@ name: My Action2
 
 runs:
   using: 'node20'
-  main: 'index.js'
+  main: 'main.js'
