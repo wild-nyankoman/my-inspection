@@ -17,6 +17,8 @@ jobs:
             core.exportVariable('AAAAA', 'aaaaaa');
   my-job1:
     runs-on: ubuntu-22.04
+    needs: 
+      - my-job0
     steps:
       - uses: actions/checkout@v4
       - run: |
@@ -27,8 +29,12 @@ jobs:
           pnpm install
       - uses: ./.github/actions/my-action2
   my-job2:
+    needs: 
+      - my-job1
     uses: ./.github/workflows/callee.yml
   my-job3:
+    needs:
+      my-job2
     runs-on: ubuntu-22.04
     steps:
       - run: |
