@@ -8,4 +8,42 @@ env:
 
 jobs:
   my-job:
-    uses: ./.github/workflows/callee.yml
+    runs-on: ubuntu-22.04
+    if: ${{false}}
+    steps:
+      - name: my-step
+        run: |
+          ls
+          echo ${{ github.run_attempt }}
+          echo ${{ github.run_number }}
+          echo ${{ github.event.pull_request.number }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.sha }}
+          echo ${{ toJson(github.ref) }}
+
+          gh api graphql -f query='{
+            repository(owner: "wild-nyankoman",name: "my-inspection") {
+              ref(qualifiedName: "${{github.ref}}") {
+                target {
+                  oid
+                }
+              }
+            }
+          }'
+        env:
+          GH_TOKEN: ${{ github.token }}
+    outputs:
+      hoge: ${{vars.UNKO}}
+  my-job1:
+    runs-on: ubuntu-22.04
+    steps:
+      - id: env
+        uses: wild-nyankoman/my-inspection/.github/actions/my-custom-action@main
+        with:
+          secrets: ${{toJson(secrets)}}
+          env_key: PROD
+      - name: Check
+        env:
+          TEST1: ${{secrets[format('{0}_{1}', 'PROD', 'TEST1')]}}
+        run: |
+          echo TEST1: $(echo $TEST1 | rev)

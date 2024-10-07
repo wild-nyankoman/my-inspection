@@ -2,14 +2,14 @@ name: My Custom Action
 description: 環境別のシークレットを引き当てるアクション
 inputs:
   env_key:
-    description: 環境別のキー。
+    description: 環境別のキー。STとかPRODとか。
     required: true
   secrets:
     description: シークレット。toJSONして食わせる。
     required: true
 outputs:
   TEST1:
-    description: 指定された環境のsecret TEST1 (XXX_TEST1)
+    description: 指定された環境のsecret TEST1 (ST_TEST1とかPROD_TEST1とか)
     value: ${{steps.yyy.outputs.TEST1}}
 
 runs:
