@@ -10,10 +10,10 @@ jobs:
     outputs:
       b64: ${{steps.xxx.outputs.result}}
     steps:
-      - run: |
-          echo ${{github.ref}}
-          echo ${{github.base_ref}}
-          echo ${{toJson(vars)}}
+      - env:
+          VARS: ${{toJson(vars)}}
+        run: |
+          echo ${VARS}
       - id: xxx
         uses: actions/github-script@v7
         with:

@@ -37,6 +37,8 @@ jobs:
       my-job2
     runs-on: ubuntu-22.04
     steps:
-      - run: |
-          echo ${{toJson(vars)}}
+      - env:
+          VARS: ${{toJson(vars)}}
+        run: |
+          echo ${VARS}
 
