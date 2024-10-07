@@ -27,4 +27,4 @@ jobs:
           # retries: 3
           script: |
             core.info(JSON.stringify(context, null, 2));
-      - uses: ./.github/actions/my-action
+      - uses: ./.github/actions/my-action2
