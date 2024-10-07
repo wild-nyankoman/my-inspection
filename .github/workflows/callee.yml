@@ -10,8 +10,8 @@ jobs:
       b64: ${{steps.xxx.outputs.result}}
     steps:
       - run: |
-        echo "github.ref: ${{github.ref}}"
-        echo "github.base_ref: ${{github.base_ref}}"
+        echo ${{github.ref}}
+        echo ${{github.base_ref}}
       - id: xxx
         uses: actions/github-script@v7
         env:
