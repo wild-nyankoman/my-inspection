@@ -8,8 +8,4 @@ env:
 
 jobs:
   my-job:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: my-step
-        uses: ./.github/actions/my-action2
+    uses: ./.github/workflows/callee.yml
