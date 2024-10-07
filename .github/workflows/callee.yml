@@ -15,6 +15,7 @@ jobs:
           curl https://get.volta.sh | bash
           export PATH=$PATH:$HOME/.volta/bin
           volta install node
+          volta install pnpm
           pnpm install
       - run: |
           echo ${{github.ref}}
