@@ -14,11 +14,9 @@ jobs:
           echo ${{github.base_ref}}
       - id: xxx
         uses: actions/github-script@v7
-        env:
-          SECRETS: ${{toJson(secrets)}}
-          VARS: ${{toJson(vars)}}
         with:
           result-encoding: string
           # retries: 3
           script: |
             core.info(JSON.stringify(context, null, 2));
+      - uses: ./.github/actions/my-action
