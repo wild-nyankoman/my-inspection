@@ -1,4 +1,5 @@
 name: My Action2
+description: あああ
 
 runs:
   using: 'node20'
