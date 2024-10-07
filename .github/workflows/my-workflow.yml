@@ -15,6 +15,10 @@ jobs:
           result-encoding: string
           script: |
             core.exportVariable('AAAAA', 'aaaaaa');
+      - env:
+          VARS: ${{toJson(vars)}}
+        run: |
+          echo $VARS
   my-job1:
     runs-on: ubuntu-22.04
     needs: 
