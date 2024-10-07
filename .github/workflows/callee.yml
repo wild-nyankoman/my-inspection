@@ -9,6 +9,11 @@ jobs:
     outputs:
       b64: ${{steps.xxx.outputs.result}}
     steps:
+      - uses: actions/checkout@v4
+      - run: |
+          curl https://get.volta.sh | bash
+          volta install node
+          pnpm install
       - run: |
           echo ${{github.ref}}
           echo ${{github.base_ref}}
