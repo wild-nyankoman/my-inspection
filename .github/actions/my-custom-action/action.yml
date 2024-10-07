@@ -17,20 +17,10 @@ runs:
   steps:
     - id: xxx
       uses: actions/github-script@v7
-      env:
-        secrets: ${{inputs.secrets}}
-        env_key: ${{inputs.env_key}}
       with:
         result-encoding: string
         script: |
-          const secrets = JSON.parse(process.env.secrets);
-          const envKey = process.env['env_key'];
-
-          const entries = Object.entries(secrets)
-            .filter(([key]) => key.startsWith(`${envKey}_`))
-            .map(([key, value]) => ([key.replace(`${envKey}_`, ''), value]));
-          
-          return JSON.stringify(Object.fromEntries(entries));
+          core.exportVariable('AAAAA', 'aaaaaa');
     - id: yyy
       shell: bash
       env:
