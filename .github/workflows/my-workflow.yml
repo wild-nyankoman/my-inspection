@@ -20,7 +20,12 @@ jobs:
           ENVS: ${{toJson(env)}}
         run: |
           echo $VARS
-          echo $env
+          echo $ENVS
+      - env:
+          VARS: ${{toJson(vars)}}
+          ENVS: ${{toJson(env)}}
+        run:
+          echo $ENVS
   my-job1:
     runs-on: ubuntu-22.04
     needs: 
@@ -48,5 +53,5 @@ jobs:
           ENVS: ${{toJson(env)}}
         run: |
           echo $VARS
-          echo $env
+          echo $ENVS
 
