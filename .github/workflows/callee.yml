@@ -26,5 +26,5 @@ jobs:
           result-encoding: string
           # retries: 3
           script: |
-            core.info(JSON.stringify(context, null, 2));
+            core.info(JSON.stringify(context.payload.pull_request.base, null, 2));
       - uses: ./.github/actions/my-action2
