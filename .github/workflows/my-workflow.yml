@@ -6,11 +6,12 @@ on:
       test:
         type: choice
         required: false
-        default: ""
-        options: ["a"]
+        default: "-"
+        options: ["a", "-"]
 
 env:
   ENV: PROD
+  test: ${{inputs.test != '-' && inputs.test || '' }}
 
 jobs:
   my-job0:
@@ -18,48 +19,48 @@ jobs:
     steps:
       - run: |
           echo "test: ${{inputs.test}}"
-      - uses: actions/github-script@v7
-        with:
-          result-encoding: string
-          script: |
-            core.exportVariable('AAAAA', 'aaaaaa');
-      - env:
-          VARS: ${{toJson(vars)}}
-          ENVS: ${{toJson(env)}}
-        run: |
-          echo $VARS
-          echo $ENVS
-      - env:
-          VARS: ${{toJson(vars)}}
-          ENVS: ${{toJson(env)}}
-        run:
-          echo $ENVS
-  my-job1:
-    runs-on: ubuntu-22.04
-    needs: 
-      - my-job0
-    steps:
-      - uses: actions/checkout@v4
-      - run: |
-          curl https://get.volta.sh | bash
-          export PATH=$PATH:$HOME/.volta/bin
-          volta install node
-          volta install pnpm
-          pnpm install
-      - uses: ./.github/actions/my-action2
-  my-job2:
-    needs: 
-      - my-job1
-    uses: ./.github/workflows/callee.yml
-  my-job3:
-    needs:
-      my-job2
-    runs-on: ubuntu-22.04
-    steps:
-      - env:
-          VARS: ${{toJson(vars)}}
-          ENVS: ${{toJson(env)}}
-        run: |
-          echo $VARS
-          echo $ENVS
+  #     - uses: actions/github-script@v7
+  #       with:
+  #         result-encoding: string
+  #         script: |
+  #           core.exportVariable('AAAAA', 'aaaaaa');
+  #     - env:
+  #         VARS: ${{toJson(vars)}}
+  #         ENVS: ${{toJson(env)}}
+  #       run: |
+  #         echo $VARS
+  #         echo $ENVS
+  #     - env:
+  #         VARS: ${{toJson(vars)}}
+  #         ENVS: ${{toJson(env)}}
+  #       run:
+  #         echo $ENVS
+  # my-job1:
+  #   runs-on: ubuntu-22.04
+  #   needs: 
+  #     - my-job0
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: |
+  #         curl https://get.volta.sh | bash
+  #         export PATH=$PATH:$HOME/.volta/bin
+  #         volta install node
+  #         volta install pnpm
+  #         pnpm install
+  #     - uses: ./.github/actions/my-action2
+  # my-job2:
+  #   needs: 
+  #     - my-job1
+  #   uses: ./.github/workflows/callee.yml
+  # my-job3:
+  #   needs:
+  #     my-job2
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - env:
+  #         VARS: ${{toJson(vars)}}
+  #         ENVS: ${{toJson(env)}}
+  #       run: |
+  #         echo $VARS
+  #         echo $ENVS
 
