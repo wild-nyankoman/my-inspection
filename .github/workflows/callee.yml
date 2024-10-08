@@ -20,7 +20,7 @@ jobs:
           result-encoding: string
           # retries: 3
           script: |
-            core.info(JSON.stringify(context.payload.pull_request.base, null, 2));
+            core.info(JSON.stringify(context.payload?.pull_request?.base, null, 2));
             core.exportVariable('YYYYYY', 'yyyyyyy');
             core.info(context.eventName);
             core.info(JSON.stringify(Object.keys(context.payload)));
