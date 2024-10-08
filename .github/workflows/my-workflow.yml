@@ -49,8 +49,8 @@ jobs:
   #         pnpm install
   #     - uses: ./.github/actions/my-action2
   my-job2:
-    needs: 
-      - my-job1
+    # needs: 
+    #   - my-job1
     uses: ./.github/workflows/callee.yml
   # my-job3:
   #   needs:
