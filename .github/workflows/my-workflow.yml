@@ -7,6 +7,7 @@ on:
         type: choice
         required: false
         options:
+          - ""
           - a
           - b
           - c
