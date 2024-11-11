@@ -18,14 +18,18 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - run: |
+          # branch or tag
           echo "ref_type: $ref_type"
+          # ブランチ名 / tag名
           echo "ref_name: $ref_name"
+          # refs/heads/main 
           echo "ref: $ref"
           echo "sha: $sha"
           echo "event_name: $event_name"
           echo "pullrequest_number: $pullrequest_number"
           echo "merge_commit_sha: $merge_commit_sha"
 
+          gh 
         env:
           ref_type: ${{github.ref_type}}
           ref_name: ${{github.ref_name}}
@@ -34,3 +38,4 @@ jobs:
           event_name: ${{ github.event_name }}
           pullrequest_number: ${{ github.event.pull_request.number }}
           merge_commit_sha: ${{ github.event.pull_request.merge_commit_sha }}
+          GH_TOKEN: ${{ github.token }}
