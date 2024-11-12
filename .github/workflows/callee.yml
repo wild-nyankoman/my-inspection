@@ -9,6 +9,7 @@ jobs:
       outcome: ${{ steps.test-step.outcome }}
       result: ${{ steps.test-step.outputs.result }}
     strategy:
+      fail-fast: false
       matrix:
         num: [0, 1]
     steps:
