@@ -37,6 +37,7 @@ jobs:
     # continue-on-error: true
     needs: ["shard-job"]
     runs-on: ubuntu-22.04
+    if: ${{!cancelled()}}
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
