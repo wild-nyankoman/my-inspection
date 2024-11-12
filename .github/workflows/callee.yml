@@ -1,26 +1,52 @@
 on:
   workflow_call:
-    outputs:
-      b64:
-        value: ${{ jobs.testjob.outputs.b64 }}
 
 jobs:
-  testjob:
+  shard-job:
     runs-on: ubuntu-22.04
+    continue-on-error: true
     outputs:
-      b64: ${{steps.xxx.outputs.result}}
+      conclusion: ${{ steps.test-step.conclusion }}
+      outcome: ${{ steps.test-step.outcome }}
+      result: ${{ steps.test-step.outputs.result }}
+    strategy:
+      matrix:
+        num: [0, 1]
     steps:
-      - env:
-          VARS: ${{toJson(vars)}}
+      - name: Test step
+        id: test-step
+        env:
+          X: ${{matrix.num}}
+        continue-on-error: true
         run: |
-          echo ${VARS}
-      - id: xxx
-        uses: actions/github-script@v7
+          if [ $X -gt 0 ]; then
+            echo success
+            echo "success" > test-result
+            exit 0
+          else
+            echo failure
+            echo "failure" > test-result
+            exit 1
+          fi
+      - name: Upload result
+        uses: actions/upload-artifact@v4
         with:
-          result-encoding: string
-          # retries: 3
-          script: |
-            core.info(JSON.stringify(context.payload?.pull_request?.base, null, 2));
-            core.exportVariable('YYYYYY', 'yyyyyyy');
-            core.info(context.eventName);
-            core.info(JSON.stringify(Object.keys(context.payload)));
+          name: shard-result-${{matrix.num}}
+          path: test-result
+  after:
+    needs: ["shard-job"]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: shard-result-*
+          path: test-results/
+          # merge-multiple: true
+      - name: xxx
+        run: |
+          failures=$(cat test-results/**/* | grep -c)
+          if [ failures -gt 0 ]; then
+            echo "::error::だめだった"
+            exit 1
+          fi
