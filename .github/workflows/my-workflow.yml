@@ -18,6 +18,7 @@ jobs:
     uses: ./.github/workflows/callee.yml
   
   my-job1:
+    if: !cancelled()
     needs:
       - my-job0
     runs-on: ubuntu-22.04
