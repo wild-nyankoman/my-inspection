@@ -39,3 +39,43 @@ jobs:
           pullrequest_number: ${{ github.event.pull_request.number }}
           merge_commit_sha: ${{ github.event.pull_request.merge_commit_sha }}
           GH_TOKEN: ${{ github.token }}
+  shard-job:
+    runs-on: ubuntu-22.04
+    continue-on-error: true
+    outputs:
+      conclusion: ${{ steps.test-step.conclusion }}
+      outcome: ${{ steps.test-step.outcome }}
+      result: ${{ steps.test-step.outputs.result }}
+    strategy:
+      matrix:
+        num: [0, 1]
+    steps:
+      - name: Test step
+        id: test-step
+        env:
+          X: ${{matrix.num}}
+        continue-on-error: true
+        run: |
+          if [ $X -gt 0 ]; then
+            echo failure
+            echo "result=failure" >> $GITHUB_OUTPUT
+            exit 1
+          else
+            echo success
+            echo "result=success" >> $GITHUB_OUTPUT
+            exit 0
+  after:
+    needs: ["shard-job"]
+    runs-on: ubuntu-22.04
+    steps:
+      - env:
+          job-result: ${{ needs.shard-job.result }}
+          conclusion: ${{ needs.shard-job.outputs.conclusion }}
+          outcome: ${{ needs.shard-job.outputs.outcome }}
+          result: ${{ needs.shard-job.outputs.result }}
+        run: |
+          echo "job-result: $job-result"
+          echo "conclusion: $conclusion"
+          echo "outcome: $outcome"
+          echo "result: $result"
+      
