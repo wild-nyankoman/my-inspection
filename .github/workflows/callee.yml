@@ -45,7 +45,7 @@ jobs:
           # merge-multiple: true
       - name: xxx
         run: |
-          failures=$(cat test-results/**/* | grep -c)
+          failures=$(cat test-results/**/* | grep -c failure)
           if [ failures -gt 0 ]; then
             echo "::error::だめだった"
             exit 1
