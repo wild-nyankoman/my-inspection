@@ -19,11 +19,11 @@ jobs:
         # continue-on-error: true
         run: |
           if [ $X -gt 0 ]; then
+            sleep 10
             echo success
             echo "success" > test-result
             exit 0
           else
-            sleep 10
             echo failure
             echo "failure" > test-result
             exit 1
