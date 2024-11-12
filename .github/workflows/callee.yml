@@ -34,7 +34,7 @@ jobs:
           name: shard-result-${{matrix.num}}
           path: test-result
   after:
-    continue-on-error: true
+    # continue-on-error: true
     needs: ["shard-job"]
     runs-on: ubuntu-22.04
     steps:
