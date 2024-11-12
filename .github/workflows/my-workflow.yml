@@ -57,25 +57,25 @@ jobs:
         continue-on-error: true
         run: |
           if [ $X -gt 0 ]; then
-            echo failure
-            echo "result=failure" >> $GITHUB_OUTPUT
-            exit 1
-          else
             echo success
             echo "result=success" >> $GITHUB_OUTPUT
             exit 0
+          else
+            echo failure
+            echo "result=failure" >> $GITHUB_OUTPUT
+            exit 1
           fi
   after:
     needs: ["shard-job"]
     runs-on: ubuntu-22.04
     steps:
       - env:
-          job-result: ${{ needs.shard-job.result }}
+          job_result: ${{ needs.shard-job.result }}
           conclusion: ${{ needs.shard-job.outputs.conclusion }}
           outcome: ${{ needs.shard-job.outputs.outcome }}
           result: ${{ needs.shard-job.outputs.result }}
         run: |
-          echo "job-result: $job-result"
+          echo "job_result: $job_result"
           echo "conclusion: $conclusion"
           echo "outcome: $outcome"
           echo "result: $result"
