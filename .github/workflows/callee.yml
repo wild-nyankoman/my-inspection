@@ -1,10 +1,10 @@
 on:
   workflow_call:
+    
 
 jobs:
   shard-job:
     runs-on: ubuntu-22.04
-    continue-on-error: true
     outputs:
       conclusion: ${{ steps.test-step.conclusion }}
       outcome: ${{ steps.test-step.outcome }}
@@ -29,11 +29,13 @@ jobs:
             exit 1
           fi
       - name: Upload result
+        if: !cancelled()
         uses: actions/upload-artifact@v4
         with:
           name: shard-result-${{matrix.num}}
           path: test-result
   after:
+    continue-on-error: true
     needs: ["shard-job"]
     runs-on: ubuntu-22.04
     steps:
@@ -44,7 +46,6 @@ jobs:
           path: test-results/
           # merge-multiple: true
       - name: xxx
-        continue-on-error: true
         run: |
           failures=$(cat test-results/**/* | grep -c failure)
           echo $failures
