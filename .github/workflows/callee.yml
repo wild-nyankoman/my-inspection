@@ -36,7 +36,6 @@ jobs:
   after:
     needs: ["shard-job"]
     runs-on: ubuntu-22.04
-    continue-on-error: true
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -45,6 +44,7 @@ jobs:
           path: test-results/
           # merge-multiple: true
       - name: xxx
+        continue-on-error: true
         run: |
           failures=$(cat test-results/**/* | grep -c failure)
           echo $failures
