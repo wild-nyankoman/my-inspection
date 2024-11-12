@@ -15,73 +15,14 @@ env:
 
 jobs:
   my-job0:
+    uses: ./.github/workflows/callee.yml
+  
+  my-job1:
+    needs:
+      - my-job0
     runs-on: ubuntu-22.04
     steps:
       - run: |
-          # branch or tag
-          echo "ref_type: $ref_type"
-          # ブランチ名 / tag名
-          echo "ref_name: $ref_name"
-          # refs/heads/main 
-          echo "ref: $ref"
-          echo "sha: $sha"
-          echo "event_name: $event_name"
-          echo "pullrequest_number: $pullrequest_number"
-          echo "merge_commit_sha: $merge_commit_sha"
-
-          gh 
+          echo $A
         env:
-          ref_type: ${{github.ref_type}}
-          ref_name: ${{github.ref_name}}
-          ref: ${{github.ref}}
-          sha: ${{ github.sha }}
-          event_name: ${{ github.event_name }}
-          pullrequest_number: ${{ github.event.pull_request.number }}
-          merge_commit_sha: ${{ github.event.pull_request.merge_commit_sha }}
-          GH_TOKEN: ${{ github.token }}
-  shard-job:
-    runs-on: ubuntu-22.04
-    continue-on-error: true
-    outputs:
-      conclusion: ${{ steps.test-step.conclusion }}
-      outcome: ${{ steps.test-step.outcome }}
-      result: ${{ steps.test-step.outputs.result }}
-    strategy:
-      matrix:
-        num: [0, 1]
-    steps:
-      - name: Test step
-        id: test-step
-        env:
-          X: ${{matrix.num}}
-        continue-on-error: true
-        run: |
-          if [ $X -gt 0 ]; then
-            echo success
-            echo "success" > test-result
-            exit 0
-          else
-            echo failure
-            echo "failure" > test-result
-            exit 1
-          fi
-      - name: Upload result
-        uses: actions/upload-artifact@v4
-        with:
-          name: shard-result-${{matrix.num}}
-          path: test-result
-  after:
-    needs: ["shard-job"]
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: shard-result-*
-          path: test-results/
-          # merge-multiple: true
-      - name: xxx
-        run: |
-          ls test-results/**/*
-          cat test-results/**/*
-      
+          A: ${{ needs.my-job0.result }}
