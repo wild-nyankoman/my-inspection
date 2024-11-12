@@ -57,27 +57,31 @@ jobs:
         continue-on-error: true
         run: |
           if [ $X -gt 0 ]; then
-            sleep 30
             echo success
-            echo "result=success" >> $GITHUB_OUTPUT
+            echo "success" > test-result
             exit 0
           else
             echo failure
-            echo "result=failure" >> $GITHUB_OUTPUT
+            echo "failure" > test-result
             exit 1
           fi
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: shard-result-${{matrix.num}}
+          path: test-result
   after:
     needs: ["shard-job"]
     runs-on: ubuntu-22.04
     steps:
-      - env:
-          job_result: ${{ needs.shard-job.result }}
-          conclusion: ${{ needs.shard-job.outputs.conclusion }}
-          outcome: ${{ needs.shard-job.outputs.outcome }}
-          result: ${{ needs.shard-job.outputs.result }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: shard-result-*
+          path: test-results/
+          # merge-multiple: true
+      - name: xxx
         run: |
-          echo "job_result: $job_result"
-          echo "conclusion: $conclusion"
-          echo "outcome: $outcome"
-          echo "result: $result"
+          ls test-results/**/*
+          cat test-results/**/*
       
