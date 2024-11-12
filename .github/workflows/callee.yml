@@ -16,7 +16,7 @@ jobs:
         id: test-step
         env:
           X: ${{matrix.num}}
-        continue-on-error: true
+        # continue-on-error: true
         run: |
           if [ $X -gt 0 ]; then
             echo success
