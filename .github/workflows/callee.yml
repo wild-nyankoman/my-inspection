@@ -2,56 +2,12 @@ on:
   workflow_call:
     
 jobs:
-  shard-job:
+  my-job:
     runs-on: ubuntu-22.04
-    outputs:
-      conclusion: ${{ steps.test-step.conclusion }}
-      outcome: ${{ steps.test-step.outcome }}
-      result: ${{ steps.test-step.outputs.result }}
-    strategy:
-      fail-fast: false
-      matrix:
-        num: [0, 1]
     steps:
-      - name: Test step
-        id: test-step
+      - run:
+          echo $EVENT_NAME
+          echo $EVENT
         env:
-          X: ${{matrix.num}}
-        # continue-on-error: true
-        run: |
-          if [ $X -gt 0 ]; then
-            sleep 10
-            echo success
-            echo "success" > test-result
-            exit 0
-          else
-            echo failure
-            echo "failure" > test-result
-            exit 1
-          fi
-      - name: Upload result
-        if: ${{!cancelled()}}
-        uses: actions/upload-artifact@v4
-        with:
-          name: shard-result-${{matrix.num}}
-          path: test-result
-  # after:
-  #   # continue-on-error: true
-  #   needs: ["shard-job"]
-  #   runs-on: ubuntu-22.04
-  #   if: ${{!cancelled()}}
-  #   steps:
-  #     - name: Download artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         pattern: shard-result-*
-  #         path: test-results/
-  #         # merge-multiple: true
-  #     - name: xxx
-  #       run: |
-  #         failures=$(cat test-results/**/* | grep -c failure)
-  #         echo $failures
-  #         if [ $failures -gt 0 ]; then
-  #           echo "::error::だめだった"
-  #           exit 1
-  #         fi
+          EVENT: ${{toJson(github.event)}}
+          EVENT_NAME: ${{github.event_name}}

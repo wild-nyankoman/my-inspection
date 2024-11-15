@@ -1,29 +1,8 @@
 on:
   pull_request: {}
   push: {}
-  workflow_dispatch:
-    inputs:
-      test:
-        type: choice
-        required: false
-        default: "-"
-        options: ["a", "-"]
-
-env:
-  ENV: PROD
-  test: ${{inputs.test != '-' && inputs.test || '' }}
+  workflow_dispatch: {}
 
 jobs:
   my-job0:
     uses: ./.github/workflows/callee.yml
-  
-  my-job1:
-    if: ${{!cancelled()}}
-    needs:
-      - my-job0
-    runs-on: ubuntu-22.04
-    steps:
-      - run: |
-          echo $A
-        env:
-          A: ${{ needs.my-job0.result }}
