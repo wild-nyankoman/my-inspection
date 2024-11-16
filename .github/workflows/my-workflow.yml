@@ -4,6 +4,7 @@ on:
   workflow_dispatch: {}
 
 env:
+  PLAYWRIGHT_DIR: ${{github.workspace}}/pw
   PLAYWRIGHT_BROWSERS_PATH: ${{github.workspace}}/pw/bin
   PLAYWRIGHT_NPM_CACHE: ${{github.workspace}}/pw/.npmcache
   PLAYWRIGHT_VERSION: 1.48.2
@@ -15,7 +16,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           key: playwright-${{env.PLAYWRIGHT_VERSION}}
-          path: ${{env.PLAYWRIGHT_BROWSERS_PATH}}
+          path: ${{env.PLAYWRIGHT_DIR}}
       - run: |
           npm init -y
           npm config set cache $PLAYWRIGHT_NPM_CACHE
