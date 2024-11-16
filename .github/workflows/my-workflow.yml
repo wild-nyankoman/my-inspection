@@ -18,7 +18,7 @@ jobs:
             -H "accept: application/vnd.github.raw+json" \
             /repos/${{ github.repository }}/contents/pnpm-lock.yaml > pnpm-lock.yaml
           echo ----------
-          cat pnpm-lock.yaml | yq '.importers."."."fp-ts".version'
+          cat pnpm-lock.yaml | yq '.importers."."'
             
           
 
