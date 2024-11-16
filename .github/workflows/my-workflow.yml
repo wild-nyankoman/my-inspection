@@ -3,36 +3,37 @@ on:
   push: {}
   workflow_dispatch: {}
 
+env:
+  PLAYWRIGHT_BROWSERS_PATH: ${{github.workspace}}/pw/bin
+  PLAYWRIGHT_NPM_CACHE: ${{github.workspace}}/pw/.npmcache
+  PLAYWRIGHT_VERSION: 1.48.2
+
 jobs:
   my-job0:
     runs-on: ubuntu-22.04
     steps:
-      - id: step1
-        env:
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          echo !!!!!!!!!
-          gh api \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            -H "accept: application/vnd.github.raw+json" \
-            /repos/${{ github.repository }}/contents/pnpm-lock.yaml > pnpm-lock.yaml
-          echo ----------
-          core_version=$(cat pnpm-lock.yaml | yq '.importers.".".dependencies.@actions/core.version')
+      - uses: actions/cache@v4
+        with:
+          key: playwright-${{env.PLAYWRIGHT_VERSION}}
+          path: ${{env.PLAYWRIGHT_BROWSERS_PATH}}
+      - run: |
+          npm init -y
+          npm config set cache $PLAYWRIGHT_NPM_CACHE
+          mkdir -p $PLAYWRIGHT_NPM_CACHE
+          npx playwright@$PLAYWRIGHT_VERSION install --with-deps chromium firefox webkit
 
-          echo "core_version=$core_version" >> $GITHUB_OUTPUT
-      - env:
-          JSON: |
-            {
-              "dependencies": {
-                "@actions/core": "${{steps.step1.outputs.core_version}}"
-              }
-            }
-        run: |
-          echo $JSON > package.json
-          cat package.json
-          rm pnpm-lock.yaml
-          npm install
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          ls $PLAYWRIGHT_NPM_CACHE
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          ls $PLAYWRIGHT_BROWSERS_PATH
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             
           
 
