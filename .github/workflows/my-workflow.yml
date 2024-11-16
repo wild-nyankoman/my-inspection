@@ -15,9 +15,9 @@ jobs:
           gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            -H "accept: application/vnd.github.raw+json"
-            /repos/${{ github.repository }}/contents/pnpm-lock.yaml >> pnpm-lock.yaml
-          echo !!!!!!!!!
+            -H "accept: application/vnd.github.raw+json" \
+            /repos/${{ github.repository }}/contents/pnpm-lock.yaml > pnpm-lock.yaml
+          echo ----------
           cat pnpm-lock.yaml | yq .importers."."."fp-ts".version
             
           
