@@ -18,7 +18,21 @@ jobs:
             -H "accept: application/vnd.github.raw+json" \
             /repos/${{ github.repository }}/contents/pnpm-lock.yaml > pnpm-lock.yaml
           echo ----------
-          cat pnpm-lock.yaml | yq '.importers.".".dependencies.@actions/core.version'
+          core_version=$(cat pnpm-lock.yaml | yq '.importers.".".dependencies.@actions/core.version')
+
+          echo "core_version=$core_version" >> $GITHUB_OUTPUT
+      - env:
+          JSON: |
+            {
+              "dependencies": {
+                "@actions/core": "${{steps.step1.outputs.core_version}}",
+              }
+            }
+        run: |
+          echo $JSON > package.json
+          cat package.json
+          rm pnpm-lock.yaml
+          npm install
             
           
 
