@@ -25,7 +25,7 @@ jobs:
           JSON: |
             {
               "dependencies": {
-                "@actions/core": "${{steps.step1.outputs.core_version}}",
+                "@actions/core": "${{steps.step1.outputs.core_version}}"
               }
             }
         run: |
