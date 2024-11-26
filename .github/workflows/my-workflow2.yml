@@ -7,7 +7,13 @@ jobs:
     steps:
       - run: |
           echo "WORKFLOW: $WORKFLOW"
+          echo "WORKFLOW_REF: $WORKFLOW_REF"
+          echo "ACTION: $ACTION"
+          echo "ACTION_REF: $ACTION_REF"
           echo "EVENT_NAME: $EVENT_NAME"
         env:
           WORKFLOW: ${{ github.workflow }}
+          WORKFLOW_REF: ${{ github.workflow_ref }}
           EVENT_NAME: ${{ github.event_name }}
+          ACTION: ${{ github.action }}
+          ACTION_REF: ${{ github.action_ref }}
