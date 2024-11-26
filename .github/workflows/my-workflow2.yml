@@ -1,3 +1,4 @@
+name: my-workflow2
 on:
   workflow_call: 
 
