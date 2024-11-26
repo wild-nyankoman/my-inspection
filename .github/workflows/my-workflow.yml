@@ -1,40 +1,17 @@
 on:
-  pull_request: {}
-  push: {}
   workflow_dispatch: {}
-
-env:
-  PLAYWRIGHT_DIR: ${{github.workspace}}/pw
-  PLAYWRIGHT_BROWSERS_PATH: ${{github.workspace}}/pw/bin
-  PLAYWRIGHT_NPM_CACHE: ${{github.workspace}}/pw/.npmcache
-  PLAYWRIGHT_VERSION: 1.48.2
 
 jobs:
   my-job0:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: volta-cli/action@v4
-      - uses: actions/cache@v4
-        with:
-          key: playwright-${{env.PLAYWRIGHT_VERSION}}
-          path: ${{env.PLAYWRIGHT_DIR}}
       - run: |
-          npm init -y
-          npm config set cache $PLAYWRIGHT_NPM_CACHE
-          mkdir -p $PLAYWRIGHT_NPM_CACHE
-          npx playwright@$PLAYWRIGHT_VERSION install --with-deps chromium firefox webkit
+          echo "WORKFLOW: $WORKFLOW"
+          echo "EVENT_NAME: $EVENT_NAME"
+        env:
+          WORKFLOW: ${{ github.workflow }}
+          EVENT_NAME: ${{ github.event_name }}
+  my-job1:
+    uses: ./.github/workflows/my-workflow2.yml
 
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          ls $PLAYWRIGHT_NPM_CACHE
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          ls $PLAYWRIGHT_BROWSERS_PATH
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          npx playwright --version
 
