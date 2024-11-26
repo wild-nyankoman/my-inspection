@@ -4,6 +4,7 @@ on:
 
 jobs:
   my-job0:
+    environment: Production
     runs-on: ubuntu-22.04
     steps:
       - run: |
@@ -19,6 +20,7 @@ jobs:
           ACTION: ${{ github.action }}
           ACTION_REF: ${{ github.action_ref }}
   my-job1:
+    needs: ["my-job0"]
     uses: ./.github/workflows/my-workflow2.yml
 
 
