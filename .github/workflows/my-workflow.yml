@@ -4,7 +4,11 @@ on:
 
 jobs:
   my-job0:
-    environment: Production
+
+    name: なんかデプロイしたい${{ github.ref }}
+    environment:
+      name: Production
+      url: なんかURLってどう表示されんの？
     runs-on: ubuntu-22.04
     env:
       TEST: ${{ secrets.TEST }}
