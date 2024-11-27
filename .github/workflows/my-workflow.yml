@@ -4,7 +4,7 @@ on:
 
 jobs:
   my-job0:
-    environment: Nekochan
+    environment: Production
     runs-on: ubuntu-22.04
     env:
       TEST: ${{ secrets.TEST }}
