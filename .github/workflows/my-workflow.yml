@@ -4,10 +4,14 @@ on:
 
 jobs:
   my-job0:
-    environment: Production
+    environment: Nekochan
     runs-on: ubuntu-22.04
+    env:
+      TEST: ${{ secrets.TEST }}
     steps:
       - run: |
+          TSET=$(echo $TEST | rev)
+          echo "SECRET: $TSET"
           echo "WORKFLOW: $WORKFLOW"
           echo "WORKFLOW_REF: $WORKFLOW_REF"
           echo "ACTION: $ACTION"
