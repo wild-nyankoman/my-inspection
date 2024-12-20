@@ -6,7 +6,7 @@ jobs:
   my-job:
     runs-on: ubuntu-22.04
     outputs:
-      test: ${{steps.xxx.outputs.test}}
+      test: ${{fromJson(steps.xxx.outputs.test)}}
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
     needs: ["my-job"]
     strategy:
       matrix:
-        test: ${{fromJson(needs.my-job.outputs.test)}}
+        test: ${{needs.my-job.outputs.test}}
     runs-on: ubuntu-22.04
     steps:
       - name: xxx
