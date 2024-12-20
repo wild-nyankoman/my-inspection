@@ -17,5 +17,5 @@ jobs:
         run: |
           echo $test
         env:
-          test: ${{steps.xxx.outputs.test[0]}}
+          test: ${{fromJson(steps.xxx.outputs.test)[0]}}
       
