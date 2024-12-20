@@ -1,0 +1,17 @@
+name: my-workflow3
+on:
+  workflow_call: 
+
+jobs:
+  my-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - id: xxx
+        uses: ./github/actions/my-action3
+      - name: xxx
+        shell: bash
+        run: |
+          echo $test
+        env:
+          test: ${{steps.xxx.outputs.test}}
+      
