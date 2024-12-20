@@ -1,15 +1,15 @@
 name: my-workflow3
 on:
-  workflow_call: 
+  workflow_dispatch: 
 
 jobs:
   my-job:
     runs-on: ubuntu-22.04
     steps:
       - id: xxx
-        # uses: ./github/actions/my-action3
-        run: |
-          echo "test=aaaaa" > $GITHUB_OUTPUT
+        uses: ./github/actions/my-action3
+        # run: |
+        #   echo "test=aaaaa" > $GITHUB_OUTPUT
       - name: xxx
         shell: bash
         run: |
