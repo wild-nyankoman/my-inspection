@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: xxx
         env:
-          test: ${{matrix.test}}
+          test: ${{matrix.test.test}}
         run: |
           echo $test
         
