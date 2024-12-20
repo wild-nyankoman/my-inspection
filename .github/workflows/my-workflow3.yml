@@ -7,7 +7,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - id: xxx
-        uses: ./github/actions/my-action3
+        # uses: ./github/actions/my-action3
+        run: |
+          echo "test=aaaaa" > $GITHUB_OUTPUT
       - name: xxx
         shell: bash
         run: |
