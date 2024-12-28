@@ -16,6 +16,7 @@ jobs:
         run:
           echo $name
   second-job:
+    needs: ['first-job']
     runs-on: ubuntu-22.04
     steps:
       - name: second-job-first-step
