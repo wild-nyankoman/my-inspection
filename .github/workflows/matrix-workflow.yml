@@ -1,0 +1,13 @@
+name: matrix-workflow
+on:
+  workflow_dispatch: {}
+
+jobs:
+  matrix-job:
+    strategy:
+      matrix: 
+        name: ['a', 'b']
+    uses: ./.github/workflows/matrix-callee.yml
+    with:
+      name: ${{matrix.name}}
+        

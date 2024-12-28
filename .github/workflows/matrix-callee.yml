@@ -1,0 +1,26 @@
+name: matrix-callee
+on:
+  workflow_call:
+    inputs:
+      name:
+        type: string
+        required: true
+
+jobs:
+  first-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: first-job-first-step
+        env:
+          name: ${{inputs.name}}
+        run:
+          echo $name
+  second-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: second-job-first-step
+        env:
+          name: ${{inputs.name}}
+        run:
+          echo $name
+
