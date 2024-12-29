@@ -33,7 +33,7 @@ jobs:
         run: |
           if ${{inputs.success}}; then
             echo success
-          else;
+          else
             echo "::error::error"
             exit 1
           fi
