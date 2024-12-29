@@ -17,12 +17,10 @@ jobs:
               sleep: 30,
               success: true,
             }, {
-            {
               name: 'job2',
               sleep: 1,
               success: false,
             }, {
-            {
               name: 'job3',
               sleep: 30,
               success: true,
