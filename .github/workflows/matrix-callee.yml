@@ -30,8 +30,8 @@ jobs:
           name: ${{inputs.name}}
           success: ${{inputs.success}}
           sleep: ${{inputs.sleep}}
-        run:
-          if [ $success -eq true ]; then
+        run: |
+          if $success; then
             echo success
           else;
             exit 1
