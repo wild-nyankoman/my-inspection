@@ -14,12 +14,22 @@ jobs:
           script: |
             return JSON.stringify([{
               name: 'job1',
-              sleep: 1,
+              sleep: 30,
               success: true,
             }, {
+            {
               name: 'job2',
-              sleep: 30,
+              sleep: 1,
               success: false,
+            }, {
+            {
+              name: 'job3',
+              sleep: 30,
+              success: true,
+            }, {
+              name: 'job4',
+              sleep: 30,
+              success: true,
             }]);
       - name: check
         env:
