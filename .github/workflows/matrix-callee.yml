@@ -31,7 +31,6 @@ jobs:
           success: ${{inputs.success}}
           sleep: ${{inputs.sleep}}
         run:
-          sleep $sleep;
           if $success; then
             echo success
           else;
