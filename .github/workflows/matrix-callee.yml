@@ -37,3 +37,13 @@ jobs:
             echo "::error::error"
             exit 1
           fi
+  third-job:
+    needs: ['second-job']
+    if: ${{!cancelled()}}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: check
+        env:
+          result: ${{needs.second-job.result}}
+        run: |
+          echo $result
