@@ -31,6 +31,7 @@ jobs:
   matrix-job:
     needs: ["pre-job"]
     strategy:
+      fail-fast: false
       matrix: 
         data: ${{fromJson(needs.pre-job.outputs.data)}}
     uses: ./.github/workflows/matrix-callee.yml
