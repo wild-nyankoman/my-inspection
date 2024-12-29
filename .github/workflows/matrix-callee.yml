@@ -31,7 +31,7 @@ jobs:
           success: ${{inputs.success}}
           sleep: ${{inputs.sleep}}
         run: |
-          if $success; then
+          if ${{inputs.success}}; then
             echo success
           else;
             echo "::error::error"
