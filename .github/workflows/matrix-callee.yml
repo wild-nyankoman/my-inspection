@@ -5,6 +5,12 @@ on:
       name:
         type: string
         required: true
+      sleep:
+        type: number
+        required: true
+      success:
+        type: boolean
+        required: true
 
 jobs:
   first-job:
@@ -22,6 +28,14 @@ jobs:
       - name: second-job-first-step
         env:
           name: ${{inputs.name}}
+          success: ${{inputs.success}}
+          sleep: ${{inputs.sleep}}
         run:
-          echo $name
-
+          echo "sleep $sleep"
+          sleep $sleep
+          if $success; then
+            echo "success"
+          else;
+            echo "::error::some error is occured"
+            exit 1
+          fi

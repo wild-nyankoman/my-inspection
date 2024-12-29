@@ -3,11 +3,34 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  pre-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - id: data
+        name: generate data
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            return [{
+              name: 'job1',
+              sleep: 1,
+              success: true,
+            }, {
+              name: 'job2',
+              sleep: 30,
+              success: false,
+            }];
+    outputs:
+      data: ${{steps.data.outputs.result}}
   matrix-job:
+    needs: ["pre-job"]
     strategy:
       matrix: 
-        name: ['a', 'b']
+        data: ${{fromJson(needs.pre-job.outputs.data)}}
     uses: ./.github/workflows/matrix-callee.yml
     with:
-      name: ${{matrix.name}}
+      name: ${{matrix.data.name}}
+      sleep: ${{matrix.data.sleep}}
+      success: ${{matrix.data.success}}
         
