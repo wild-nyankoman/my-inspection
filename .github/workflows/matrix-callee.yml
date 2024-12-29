@@ -33,8 +33,7 @@ jobs:
         run:
           sleep $sleep;
           if $success; then
-            echo "success";
+            echo success
           else;
-            echo "::error::some error is occured";
-            exit 1;
+            exit 1
           fi
