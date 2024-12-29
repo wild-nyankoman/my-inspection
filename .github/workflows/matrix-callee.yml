@@ -34,5 +34,6 @@ jobs:
           if $success; then
             echo success
           else;
+            echo "::error::error"
             exit 1
           fi
