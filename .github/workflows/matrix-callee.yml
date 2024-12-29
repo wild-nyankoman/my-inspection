@@ -39,7 +39,7 @@ jobs:
           fi
   third-job:
     needs: ['second-job']
-    if: ${{!cancelled()}}
+    if: ${{cancelled()}}
     runs-on: ubuntu-22.04
     steps:
       - name: check
