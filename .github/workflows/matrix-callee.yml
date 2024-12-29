@@ -31,13 +31,10 @@ jobs:
           success: ${{inputs.success}}
           sleep: ${{inputs.sleep}}
         run:
-          echo "name $name"
-          echo "sleep $sleep"
-          echo "success $success"
-          #sleep $sleep
-          #if $success; then
-          #  echo "success"
-          #else;
-          #  echo "::error::some error is occured"
-          #  exit 1
-          #fi
+          sleep $sleep;
+          if $success; then
+            echo "success";
+          else;
+            echo "::error::some error is occured";
+            exit 1;
+          fi
