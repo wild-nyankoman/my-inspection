@@ -21,6 +21,11 @@ jobs:
               sleep: 30,
               success: false,
             }];
+      - name: check
+        env:
+          result: ${{steps.data.outputs.result}}
+        run: |
+          echo $result
     outputs:
       data: ${{steps.data.outputs.result}}
   matrix-job:
