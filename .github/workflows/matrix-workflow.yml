@@ -48,3 +48,12 @@ jobs:
       sleep: ${{matrix.data.sleep}}
       success: ${{matrix.data.success}}
         
+  last-job:
+    if: ${{!cancelled()}}
+    runs-on: ubuntu-22.04
+    needs: ["matrix-job"]
+    env:
+      result: ${{needs.matrix-job.result}}
+    steps:
+      - run: |
+          echo $result
