@@ -1,0 +1,29 @@
+name: my-workflow4
+on:
+  workflow_dispatch: 
+
+jobs:
+  my-job:
+    runs-on: ubuntu-22.04
+    outputs:
+      test: XXXXX
+    steps:
+      - name: dummy
+        run: echo dummy
+  second-job:
+    needs: ["my-job"]
+    runs-on: ubuntu-22.04
+    env:
+      test1: ${{fromJson('aaaaaaaaa')}}
+      test2: ${{fromJson(needs.my-job.outputs.test)}}
+    steps:
+      - name: xxx
+        run: |
+          cat << EOS
+          {
+            "test1": $test1,
+            "test2": $test2
+          }
+          EOS
+        
+      
