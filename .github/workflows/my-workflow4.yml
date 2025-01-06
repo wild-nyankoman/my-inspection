@@ -14,8 +14,8 @@ jobs:
     needs: ["my-job"]
     runs-on: ubuntu-22.04
     env:
-      test1: ${{fromJson('aaaaaaaaa')}}
-      test2: ${{fromJson(needs.my-job.outputs.test)}}
+      test1: ${{toJson('aaaaaaaaa')}}
+      test2: ${{toJson(needs.my-job.outputs.test)}}
     steps:
       - name: xxx
         run: |
