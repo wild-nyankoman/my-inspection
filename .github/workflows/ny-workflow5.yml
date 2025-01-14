@@ -1,0 +1,15 @@
+name: my-workflow5
+on:
+  workflow_dispatch:
+
+jobs:
+  my-job:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Set env
+        run:
+          echo "test=123" >> $GITHUB_ENV
+      - name: Echo env
+        run:
+          echo $test
+          echo ${{env.test}}
