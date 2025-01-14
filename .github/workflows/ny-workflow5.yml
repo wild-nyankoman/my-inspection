@@ -11,5 +11,5 @@ jobs:
           echo "test=123" >> $GITHUB_ENV
       - name: Echo env
         run:
-          echo $test
-          echo ${{env.test}}
+          echo "a - $test";
+          echo "b - ${{env.test}}";
