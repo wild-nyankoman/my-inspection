@@ -1,15 +1,15 @@
 name: my-workflow5
 on:
   workflow_dispatch:
-
+env:
+  HOGE1: test1234
 jobs:
   my-job:
     runs-on: ubuntu-22.04
     steps:
       - name: Set env
-        run:
-          echo "test=123" >> $GITHUB_ENV
-      - name: Echo env
-        run:
-          echo "a - $test";
-          echo "b - ${{env.test}}";
+        run: |
+          echo "HOGE1: $HOGE1"
+          echo "HOGE2: $HOGE2"
+        env:
+          HOGE2: asdf1234
